@@ -20,7 +20,23 @@ def sums_of_str_elements_are_equal(func):
 
 
 def format_output(*required_keys):
-    pass
+    def make_dict_with_required_keys(func):
+        def format_dict(*args, **kwargs):
+            new_keys = {k: k.split('__') for k in required_keys}
+            input_dict = func(*args, **kwargs)
+            flat_list_of_new_keys_value = [item for sublist in new_keys.values() for item in sublist]
+
+            for k in flat_list_of_new_keys_value:
+                if k not in input_dict.keys():
+                    raise ValueError
+
+            new_dict = {key: ' '.join([input_dict[v] if input_dict[v] != '' else 'Empty value' for v in value]) for
+                        key, value in new_keys.items()}
+            return new_dict
+
+        return format_dict
+
+    return make_dict_with_required_keys
 
 
 def add_method_to_instance(klass):
