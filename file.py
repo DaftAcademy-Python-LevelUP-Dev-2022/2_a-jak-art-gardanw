@@ -1,5 +1,9 @@
 def greeter(func):
-    pass
+    def aloha(*args, **kwargs):
+        name = ' '.join(list(map(lambda s: s.capitalize(), func(*args, **kwargs).split(' '))))
+        name = 'Aloha ' + name
+        return name
+    return aloha
 
 
 def sums_of_str_elements_are_equal(func):
