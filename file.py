@@ -40,4 +40,11 @@ def format_output(*required_keys):
 
 
 def add_method_to_instance(klass):
-    pass
+    def add_method_to_class(func):
+        def new_func(*args, **kwargs):
+            return func()
+
+        setattr(klass, func.__name__, new_func)
+        return new_func
+
+    return add_method_to_class
